@@ -26,8 +26,9 @@
   //------------
   // css 속성 바꿔주는 helper 함수
   function setStyle(target, property, value) {
-    var target = el(target);
-    return target.style.setProperty(property, value);
+    var set_style;
+    typeof target === 'string' ? set_style = el(target).style.setProperty(property, value) : set_style = target.style.setProperty(property, value);
+    return set_style;
   }
   //------------
 
