@@ -14,10 +14,18 @@
   function els(el, parent) {
     return (parent || doc).querySelectorAll(el);
   }
+
+  //------------ 
+  // css 속성 확인해주는 helper 함수
+  function getStyle(target, pseudo, property) {
+    var target;
+    typeof target === 'string' ? target = global.getComputedStyle(el(target), pseudo) : target = global.getComputedStyle(target, pseudo);
+    return target.getPropertyValue(property);
+  }
   
   //------------
   // css 속성 바꿔주는 helper 함수
-  function setStyle(target, property, value) {    
+  function setStyle(target, property, value) {
     var target = el(target);
     return target.style.setProperty(property, value);
   }
@@ -58,7 +66,7 @@
   
   [
     el, els,
-    setStyle,
+    setStyle, getStyle,
     toggleClass, addClass, removeClass,
   ].forEach(function (fn) {
     global[namespace][fn.name] = fn;
