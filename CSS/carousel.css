@@ -19,13 +19,13 @@ body {
   height: 400px;
   margin: 0 auto;
   background: #e0e0e0;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .slider {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -300%;
+  left: -300%;
   width: 100%;
   height: 100%;
   font-size: 40px;
@@ -33,20 +33,42 @@ body {
   line-height: 400px;
 }
 
+.is-active {
+  top: 0;
+  left: 0;
+  transition: left 0.24s ease-out;
+}
+
+.is-prev {
+  top: 0;
+  left: -100%;
+  transition: left 0.14s ease-in-out;
+}
+
+.is-next {
+  top: 0;
+  left: 100%;
+  /* transition: left 0.34s ease-in; */
+}
+
 .index1 {
   background: pink;
 }
 
 .index2 {
-  top: -800px;
-  left: 0;
   background: teal;
 }
 
 .index3 {
-  top: -800px;
-  left: 0;
   background: orange;
+}
+
+.index4 {
+  background: beige;
+}
+
+.index5 {
+  background: aqua;
 }
 
 .carousel-controls {
