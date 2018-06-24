@@ -33,23 +33,113 @@ body {
   line-height: 400px;
 }
 
+/*******************
+/* slider animation */
+@keyframes toLeft {
+  from { left: 100%; }
+  to { left: 0; }
+}
+
+@keyframes toRight {
+  from { left: -100%; }
+  to { left: 0; }
+}
+
+@keyframes activeToLeft {
+  from { left: 0%; }
+  to { left: 100% }
+}
+
+@keyframes activeToRight {
+  from { left: 0; }
+  to { left: -100%; }
+}
+
+@keyframes isPrev {
+  from { left: -200%; }
+  to { left: -100%; }
+}
+
+@keyframes isNext {
+  from { left: 200%; }
+  to { left: 100%; }
+}
+
+@keyframes nextIsOut {
+  from { left: 100%; }
+  to  { left: 200%; }
+}
+
+@keyframes prevIsOut {
+  from { left: -100%; }
+  to { left: -200%; }
+}
+
+/* initial slider state */
 .is-active {
+  top: 0; 
+  left: 0;
+}
+
+.next-is-active {
+  top: 0;
+  left: 100%;
+}
+
+.prev-is-active {
+  top: 0;
+  left: -100%;
+}
+
+
+.is-active_N {
   top: 0;
   left: 0;
-  transition: left 0.24s ease-out;
+  animation: toLeft 1.2s;
+}
+
+.is-active_P {
+  top: 0;
+  left: 0;
+  animation: toRight 1.2s;
 }
 
 .is-prev {
   top: 0;
   left: -100%;
-  transition: left 0.14s ease-in-out;
+  animation: isPrev 1.2s;
+}
+
+.is-prev-R {
+  top: 0;
+  left: -100%;
+  animation: activeToRight 1.2s;
 }
 
 .is-next {
   top: 0;
   left: 100%;
-  /* transition: left 0.34s ease-in; */
+  animation: activeToLeft 1.2s;
 }
+
+.is-next-R {
+  top: 0;
+  left: 100%;
+  animation: isNext 1.2s;
+}
+
+.next-is-out {
+  top: 0;
+  left: 200%;
+  animation: nextIsOut 1.2s;
+}
+
+.prev-is-out {
+  top: 0;
+  left: -200%;
+  animation: prevIsOut 1.2s; 
+}
+
 
 .index1 {
   background: pink;
