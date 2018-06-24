@@ -1,5 +1,8 @@
 # Carousel in Vanilla JS
 
+## Check it out :)
+[Demo](https://r0o0.github.io/carousel_vanillaJS/)
+
 ## Purpose
 
 Building a carousel in Vanilla JS for the purpose of practicing Javascript.
