@@ -5,163 +5,124 @@
   var all_sliders = [];
   var btn_prev = _.el('.btn-prev');
   var btn_next = _.el('.btn-next');
-  var curr_slider = [0];
+  // stores number of slider user wants to show (for later use)
+  var show = 1;
   
   // slider btns trigger
   btn_prev.addEventListener('click', prevSlider);
   btn_next.addEventListener('click', nextSlider);
 
   // check slider number and store in all_sliders array
-  (function getSliders() {
+  var amount = (function getSliders() {
     var sliders = _.els('.slider');
+    var slider_num;
+
     for(var i = 0, l = sliders.length; i < l; i++) {
       var target = sliders[i];
-      console.log('target' + i, target);
+      // console.log('target' + i, target);
       _.addClass(target, 'index' + [i + 1]);
       all_sliders.push(target);
     }
+
+    slider_num = all_sliders.length;
+    return slider_num;
   })();
 
+  // slider initial state
   function init() {
     _.addClass(all_sliders[0], 'is-active');
-    currSlider(curr_slider[0]);
-    // activeSlider();
-  } 
-
-  // init();
-  // check which slider is active
-  function currSlider(base) {
-    var curr_index = base;
-    
-    // curr_index !== base ? curr_index = curr_slider[0] : curr_index = base;
-    console.log('currSlider', curr_index);
-    
-    // get last index and store in variable
-    var last_index = all_sliders.length - 1;
-    var prev_index;
-    var next_index;
-    var curr_top;
-    var curr_left;
-
-    // check all sliders for...
-    for (var i = 0, l = all_sliders.length; i < l; i++) {
-      // get css top value of all sliders and store
-      curr_top = _.getStyle(all_sliders[i], null, 'top');
-      // get css left value of all sliders and store
-      curr_left = _.getStyle(all_sliders[i], null, 'left');
-      
-      // if curr_top and curr_left value is equal to '0px'
-      if (curr_top === '0px' && curr_left === '0px') {
-        // store the current i in index
-        curr_index = i;
-        // console.log(index);
-      }
-    }
-
-    curr_index === 0 ? prev_index = last_index : prev_index = curr_index - 1;
-    curr_index === last_index ? next_index = 0  : next_index = curr_index + 1;
-    
-    (function positionPrev(index) {
-      var target = all_sliders[index];
-      // console.log(target);
-      _.addClass(target, 'is-prev');
-      // if (index === last_index) {
-      //   _.removeClass(target, 'is-prev');
-      //   _.addClass(target, 'is-next');
-      // }
-    })(prev_index);
-
-    (function positionNext(index) {
-      var target = all_sliders[index];
-      _.addClass(target, 'is-next');
-    })(next_index); 
-
-    // positionPrev(prev_index);
-    // positionNext(next_index);
-    // when currSlider function is called give the value in variable index
-    return curr_index;
+    _.addClass(all_sliders[1], 'next-is-active');
+    _.addClass(all_sliders[amount - show], 'prev-is-active');
   }
 
-  function activeSlider(slider) {
-    var target = all_sliders[slider];
-    _.addClass(target, 'is-active');
-    
+  function activeSlider(slider, state) {
+    var target = slider;
+    _.addClass(target, state);
   } 
 
-  function disableSlider() {
-    var curr_index = curr_slider[0];
-    console.log('disable', curr_index); 
-    var target;
-    for (var i = 0, l = all_sliders.length; i < l; i++) {
-      target = all_sliders[i];
-      if (curr_index === i) {
-        _.removeClass(target, 'is-prev');
-        _.removeClass(target, 'is-next');
-        // continue;
-      } else {
-        _.removeClass(target, 'is-active');
-        _.removeClass(target, 'is-prev');
-        _.removeClass(target, 'is-next');
-      }
-    } 
+  function disableSlider(target) {
+    _.removeClass(target, 'is-active');
+    _.removeClass(target, 'next-is-active');
+    _.removeClass(target, 'prev-is-active');
+    _.removeClass(target, 'is-active_P');
+    _.removeClass(target, 'is-active_N');
+    _.removeClass(target, 'is-prev');
+    _.removeClass(target, 'is-next');
+    _.removeClass(target, 'is-prev-R');
+    _.removeClass(target, 'is-next-R');
   }
 
   function prevSlider() {
-    disableSlider();
-    var curr_index = currSlider();
-    console.log(curr_index);
-    var target = all_sliders[curr_index];
-    console.log(target);
-    
-    curr_index === 0 ? curr_index = all_sliders.length - 1 : curr_index = curr_index - 1;
-    // _.setStyle(target, 'left', '-100%');
-    // _.setStyle(target, 'transform', 'left 0.34s ease-in');
-    // _.addClass(target, 'is-prev');
-    
-    console.log('last', curr_index);
+    var curr_index;
+    // last index is all sliders array length minus the number of slider to show
+    var last_index = amount - show;
 
-    // _.setStyle(target, 'transform', 'left')
-    // for (var i = 0, l = curr_slider[i]; i < l; i++) {
-    //   console.log(curr_slide);
-    //   curr_slider.shift(i);  
-    // }
-    curr_slider.push(curr_index);
-    curr_slider.shift(0);
-    activeSlider(curr_index);
-    disableSlider();
-    currSlider(curr_slider[0]);
-    console.log('global', curr_slider[0]);
-    
+    // check for next slider to go out
+    for (var i = amount - show; i >= 0; i--) {
+      // if index is equal to 1
+      // because next slider is always the second index in the array
+      if (i === 1) {
+        // add animation to get the slider out of the screen
+        _.addClass(all_sliders[i], 'next-is-out');
+      } else {
+        // remove class in all other sliders
+        _.removeClass(all_sliders[i], 'next-is-out');
+        _.removeClass(all_sliders[i], 'prev-is-out');
+      }
+    }
+  
+    // run through all index in all_sliders array 
+    for (var i = 0, l = amount - show; i < l; i++) {
+      // disable sliders through all sliders
+      disableSlider(all_sliders[i]);
+      // push and shift all sliders until it reaches
+      // the slider you want to show
+      all_sliders.push(all_sliders[0]);
+      all_sliders.shift(all_sliders[i])
+    }
+
+    // current index is always the first index of
+    // the changed all_sliders array
+    curr_index = all_sliders[0];
+
+    // previous slider is always the last index of all_sliders array
+    _.addClass(all_sliders[last_index], 'is-prev');
+    // next slider is always the second index of all_sliders array
+    _.addClass(all_sliders[1], 'is-next');
+    activeSlider(curr_index, 'is-active_P');
   }
-  // console.log('global', curr_slider);
+
   function nextSlider() {
-  //   var curr_index = currSlider();
-  //   var next_index = curr_index + 1;
-  //   var last = all_sliders[all_sliders.length - 1];
-  //   var target;
+    var curr_index;
+    var last_index = amount - show;
 
-  //   for (var i = 0, l = all_sliders.length; i < l; i++) {
-  //     if (i === curr_index) {
-  //       // console.log(i);
-  //       continue;
-  //     } else {
-  //       // disableSlider(all_sliders[i], 'top', '-800px');
-  //       disableSlider(all_sliders[i], 'is-active');
-  //     }
-  //   }
+    // check for next slider to go out
+    for (var i = amount - show; i >= 0; i--) {
+      if (i === last_index) {
+        _.addClass(all_sliders[i], 'prev-is-out');
+      } else {
+        _.removeClass(all_sliders[i], 'prev-is-out');
+        _.removeClass(all_sliders[i], 'next-is-out');
+      }
+    }
 
-  //   if (next_index === all_sliders.length) {
-  //     // disableSlider(last, 'top', '-800px');
-  //     disableSlider(last, 'is-active');
-  //     target = all_sliders[0];
-  //     // activeSlider(target, 'top', '0');
-  //     activeSlider(target, 'is-active');
-  //   } else {
-  //     target = all_sliders[next_index];
-  //     // activeSlider(target, 'top', '0');
-  //     activeSlider(target, 'is-active');
-  //   }
+    // to get the first slider when next button is triggered
+    // index 1 is always the next slider so
+    // push index 0, the first slider
+    all_sliders.push(all_sliders[0]);
+    // then just shift it once and next slider will be active
+    all_sliders.shift(all_sliders[0]);
 
+    // run through all index in all_sliders array 
+    for (var i = 0, l = amount - show; i < l; i++) {
+      // disable sliders through all sliders
+      disableSlider(all_sliders[i]);
+    }
+
+    curr_index = all_sliders[0];
+    _.addClass(all_sliders[last_index], 'is-prev-R');
+    _.addClass(all_sliders[1], 'is-next-R');
+    activeSlider(curr_index, 'is-active_N');
   } 
   
   init();
