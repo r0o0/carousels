@@ -6,9 +6,12 @@ Building a carousel in Vanilla JS for the purpose of practicing Javascript.
 
 ## Goal
 
-- Infinite carousel (single)
-- Sliding effect
-- Support at least IE9.
+- ~~Infinite carousel (single item)~~
+- Infinite carousel (mulitple items)
+- ~~Sliding effect~~
+- Carousel indicator (nav)
+- Responsive slider
+- Support at least IE9. 
 - Try to cover as many use cases as possible. (Prob the hardest part..)
 
 ( _will update goal in future :)_ )
@@ -34,3 +37,7 @@ ___
 #### 06.23
 - After adding next slide to be active... 
   - Oops! Carousel is acting weird LoL #%^#&
+
+#### 06.24
+- Add animation keyframes for the slide effects
+- Fixed carousel!! And now it's an infinite single sliding carousel
