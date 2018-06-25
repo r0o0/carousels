@@ -38,9 +38,15 @@ ___
 - Add sliding effects (only when previous button is clicked)
 
 #### 06.23
-- After adding next slide to be active... 
+
+- After adding next slide to be active...
   - Oops! Carousel is acting weird LoL #%^#&
 
 #### 06.24
+
 - Add animation keyframes for the slide effects
 - Fixed carousel!! And now it's an infinite single sliding carousel
+
+#### 06.25
+
+- Disable previous and next buttons when slider animation is running
