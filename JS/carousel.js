@@ -12,6 +12,18 @@
   btn_prev.addEventListener('click', prevSlider);
   btn_next.addEventListener('click', nextSlider);
 
+  // when animation starts on slider disable previous and next buttons
+  _.el('.slider').addEventListener('animationstart', function() {
+    btn_prev.disabled = true;
+    btn_next.disabled = true;
+  });
+
+  // when animation ends on slider enable previous and next buttons
+  _.el('.slider').addEventListener('animationend', function(){
+    btn_prev.disabled = false;
+    btn_next.disabled = false;
+  });
+
   // check slider number and store in all_sliders array
   var amount = (function getSliders() {
     var sliders = _.els('.slider');
