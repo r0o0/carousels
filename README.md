@@ -14,7 +14,7 @@ Building a carousel in Vanilla JS for the purpose of practicing Javascript.
 - ~~Sliding effect~~
 - Carousel indicator (nav)
 - Responsive slider
-- Support at least IE9. 
+- Support at least IE9.
 - Try to cover as many use cases as possible. (Prob the hardest part..)
 
 ( _will update goal in future :)_ )
@@ -50,3 +50,7 @@ ___
 #### 06.25
 
 - Disable previous and next buttons when slider animation is running
+
+#### 08.16
+
+- Fix IE issue: carousel not working due to helper functions not accessible in IE browser (Currently only supporting till IE 10).
