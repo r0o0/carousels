@@ -1,10 +1,12 @@
-(function (global, doc,  _) {
+(function (global, doc) {
   'use strict';
   
   // globally accessible variables;
   var all_sliders = [];
-  var btn_prev = _.el('.btn-prev');
-  var btn_next = _.el('.btn-next');
+  // console.log('object DOM', _);
+  var btn_prev = el('.btn-prev');
+  
+  var btn_next = el('.btn-next');
   // stores number of slider user wants to show (for later use)
   var show = 1;
   
@@ -13,26 +15,26 @@
   btn_next.addEventListener('click', nextSlider);
 
   // when animation starts on slider disable previous and next buttons
-  _.el('.slider').addEventListener('animationstart', function() {
+  el('.slider').addEventListener('animationstart', function() {
     btn_prev.disabled = true;
     btn_next.disabled = true;
   });
 
   // when animation ends on slider enable previous and next buttons
-  _.el('.slider').addEventListener('animationend', function(){
+  el('.slider').addEventListener('animationend', function(){
     btn_prev.disabled = false;
     btn_next.disabled = false;
   });
 
   // check slider number and store in all_sliders array
   var amount = (function getSliders() {
-    var sliders = _.els('.slider');
+    var sliders = els('.slider');
     var slider_num;
 
     for(var i = 0, l = sliders.length; i < l; i++) {
       var target = sliders[i];
       // console.log('target' + i, target);
-      _.addClass(target, 'index' + [i + 1]);
+      addClass(target, 'index' + [i + 1]);
       all_sliders.push(target);
     }
 
@@ -42,26 +44,26 @@
 
   // slider initial state
   function init() {
-    _.addClass(all_sliders[0], 'is-active');
-    _.addClass(all_sliders[1], 'next-is-active');
-    _.addClass(all_sliders[amount - show], 'prev-is-active');
+    addClass(all_sliders[0], 'is-active');
+    addClass(all_sliders[1], 'next-is-active');
+    addClass(all_sliders[amount - show], 'prev-is-active');
   }
 
   function activeSlider(slider, state) {
     var target = slider;
-    _.addClass(target, state);
+    addClass(target, state);
   } 
 
   function disableSlider(target) {
-    _.removeClass(target, 'is-active');
-    _.removeClass(target, 'next-is-active');
-    _.removeClass(target, 'prev-is-active');
-    _.removeClass(target, 'is-active_P');
-    _.removeClass(target, 'is-active_N');
-    _.removeClass(target, 'is-prev');
-    _.removeClass(target, 'is-next');
-    _.removeClass(target, 'is-prev-R');
-    _.removeClass(target, 'is-next-R');
+    removeClass(target, 'is-active');
+    removeClass(target, 'next-is-active');
+    removeClass(target, 'prev-is-active');
+    removeClass(target, 'is-active_P');
+    removeClass(target, 'is-active_N');
+    removeClass(target, 'is-prev');
+    removeClass(target, 'is-next');
+    removeClass(target, 'is-prev-R');
+    removeClass(target, 'is-next-R');
   }
 
   function prevSlider() {
@@ -75,11 +77,11 @@
       // because next slider is always the second index in the array
       if (i === 1) {
         // add animation to get the slider out of the screen
-        _.addClass(all_sliders[i], 'next-is-out');
+        addClass(all_sliders[i], 'next-is-out');
       } else {
         // remove class in all other sliders
-        _.removeClass(all_sliders[i], 'next-is-out');
-        _.removeClass(all_sliders[i], 'prev-is-out');
+        removeClass(all_sliders[i], 'next-is-out');
+        removeClass(all_sliders[i], 'prev-is-out');
       }
     }
   
@@ -98,9 +100,9 @@
     curr_index = all_sliders[0];
 
     // previous slider is always the last index of all_sliders array
-    _.addClass(all_sliders[last_index], 'is-prev');
+    addClass(all_sliders[last_index], 'is-prev');
     // next slider is always the second index of all_sliders array
-    _.addClass(all_sliders[1], 'is-next');
+    addClass(all_sliders[1], 'is-next');
     activeSlider(curr_index, 'is-active_P');
   }
 
@@ -111,10 +113,11 @@
     // check for next slider to go out
     for (var i = amount - show; i >= 0; i--) {
       if (i === last_index) {
-        _.addClass(all_sliders[i], 'prev-is-out');
+        addClass(all_sliders[i], 'prev-is-out');
+        console.log(addClass(all_sliders[i], 'prev-is-out'));
       } else {
-        _.removeClass(all_sliders[i], 'prev-is-out');
-        _.removeClass(all_sliders[i], 'next-is-out');
+        removeClass(all_sliders[i], 'prev-is-out');
+        removeClass(all_sliders[i], 'next-is-out');
       }
     }
 
@@ -132,11 +135,11 @@
     }
 
     curr_index = all_sliders[0];
-    _.addClass(all_sliders[last_index], 'is-prev-R');
-    _.addClass(all_sliders[1], 'is-next-R');
+    addClass(all_sliders[last_index], 'is-prev-R');
+    addClass(all_sliders[1], 'is-next-R');
     activeSlider(curr_index, 'is-active_N');
   } 
   
   init();
 
-})(window, document, DOM);
+})(window, document);
