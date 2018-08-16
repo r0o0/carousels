@@ -1,7 +1,6 @@
-(function (global, doc) {
-  'use strict';
-
-  var namespace = 'DOM';
+  var doc = document;
+  var global = window;
+  // var namespace = 'DOM';
 
   //-------------------------------------
   // HELPER FUNCTIONS
@@ -11,8 +10,8 @@
   }
 
   // querySelectorAll
-  function els(el, parent) {
-    return (parent || doc).querySelectorAll(el);
+  function els(target, parent) {
+    return (parent || doc).querySelectorAll(target);
   }
 
   //------------ 
@@ -28,7 +27,7 @@
   function setStyle(target, property, value) {
     var set_style;
     typeof target === 'string' ? set_style = el(target).style.setProperty(property, value) : set_style = target.style.setProperty(property, value);
-    return set_style;
+    return set_style;   
   }
   //------------
 
@@ -49,6 +48,7 @@
     var target_class;
     // 해당 요소의 classList를 확인해서
     typeof target === 'string' ? target_class = el(target).classList : target_class = target.classList;
+    console.log(target_class);
     // 클래스 리스트에 추가
     target_class.add(name);
   }
@@ -62,17 +62,3 @@
     // 클래스 리스트에 제거
     target_class.remove(name);
   }
-  
-  Object.defineProperty(global, namespace, {value: {} });
-  
-  [
-    el, els,
-    setStyle, getStyle,
-    toggleClass, addClass, removeClass,
-  ].forEach(function (fn) {
-    global[namespace][fn.name] = fn;
-  });
-
-  Object.freeze(global[namespace]);
-
-})(window, document);
