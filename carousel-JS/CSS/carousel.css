@@ -1,0 +1,208 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  overflow-x: hidden;
+}
+
+.carousel-wrapper {
+  width: auto;
+  height: auto;
+  padding: 40px;
+  background: #f7f7f7;
+}
+
+.carousel-content {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  margin: 0 auto;
+  background: #e0e0e0;
+  /* overflow: hidden; */
+}
+
+.slider {
+  position: absolute;
+  top: -300%;
+  left: -300%;
+  width: 100%;
+  height: 100%;
+  font-size: 40px;
+  text-align: center;
+  line-height: 400px;
+}
+
+/*******************
+/* slider animation */
+@keyframes toLeft {
+  from { left: 100%; }
+  to { left: 0; }
+}
+
+@keyframes toRight {
+  from { left: -100%; }
+  to { left: 0; }
+}
+
+@keyframes activeToLeft {
+  from { left: 0%; }
+  to { left: 100% }
+}
+
+@keyframes activeToRight {
+  from { left: 0; }
+  to { left: -100%; }
+}
+
+@keyframes isPrev {
+  from { left: -200%; }
+  to { left: -100%; }
+}
+
+@keyframes isNext {
+  from { left: 200%; }
+  to { left: 100%; }
+}
+
+@keyframes nextIsOut {
+  from { left: 100%; }
+  to  { left: 200%; }
+}
+
+@keyframes prevIsOut {
+  from { left: -100%; }
+  to { left: -200%; }
+}
+
+/* initial slider state */
+.is-active {
+  top: 0; 
+  left: 0;
+}
+
+.next-is-active {
+  top: 0;
+  left: 100%;
+}
+
+.prev-is-active {
+  top: 0;
+  left: -100%;
+}
+
+
+.is-active_N {
+  top: 0;
+  left: 0;
+  animation: toLeft 1.2s;
+}
+
+.is-active_P {
+  top: 0;
+  left: 0;
+  animation: toRight 1.2s;
+}
+
+.is-prev {
+  top: 0;
+  left: -100%;
+  animation: isPrev 1.2s;
+}
+
+.is-prev-R {
+  top: 0;
+  left: -100%;
+  animation: activeToRight 1.2s;
+}
+
+.is-next {
+  top: 0;
+  left: 100%;
+  animation: activeToLeft 1.2s;
+}
+
+.is-next-R {
+  top: 0;
+  left: 100%;
+  animation: isNext 1.2s;
+}
+
+.next-is-out {
+  top: 0;
+  left: 200%;
+  animation: nextIsOut 1.2s;
+}
+
+.prev-is-out {
+  top: 0;
+  left: -200%;
+  animation: prevIsOut 1.2s; 
+}
+
+
+.index1 {
+  background: pink;
+}
+
+.index2 {
+  background: teal;
+}
+
+.index3 {
+  background: orange;
+}
+
+.index4 {
+  background: beige;
+}
+
+.index5 {
+  background: aqua;
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.carousel-btns {
+  display: flex;
+  justify-content: space-between;  
+  width: 120px;
+}
+
+.btn-prev, .btn-next {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 3px 4px 0 rgba(0,0,0,.09);
+}
+
+.btn-prev::before, .btn-next::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.btn-prev::before {
+  transform: translate(-68%, -50%);
+  border-right: 12px solid #ccc;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent; 
+}
+
+.btn-next::before {
+  transform: translate(-38%, -50%);
+  border-left: 12px solid #ccc;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent; 
+}
